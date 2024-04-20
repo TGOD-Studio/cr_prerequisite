@@ -1,0 +1,18 @@
+{
+  "name": "rs_app_prerequisite",
+  "version": "1.0.0",
+  "description": "- Github\r     - Repo basic\r     - Branches\r     - Pull Request\r - Golang\r     - Syntax\r     - What is Packages\r     - What is Frameworks\r - APIs\r     - Basic (HTTPS / Request / Response / Header / Body / JSON)\r     - How Front-end and Back-end work together\r - Testing\r     - Postman manual testing\r #### TODO\r 1. Create a branch of this repo and name it \"weather app\"\r 2. Create a weather Back-end service in Golang with or without any Framework at rs_app_prerequisite/project/backend/weather_app\r     - Give current weather of the country that contain in request body\r         - Use JSON format in both request and response\r         - Get weather data from [weatherapi](https://www.weatherapi.com/docs/) or [openweathermap](https://openweathermap.org/)\r 3. Create a pull request with an invite link of Postman workspace",
+  "main": "server.js",
+  "scripts": {
+    "serve": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {}
+}
