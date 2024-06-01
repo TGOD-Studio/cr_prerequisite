@@ -14,13 +14,6 @@ app.get('/api/data', async (request, response) => {
     if (!city)
         return response.status(400).send('Bad request')
 
-    let output = {
-        description: '',
-        temp: '',
-        feels_like: '',
-        humidity: ''
-    }
-    
     try{
     const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1493ad0764f705adea83d06d072d49bb&units=metric&lang=th`)
     
@@ -29,10 +22,11 @@ app.get('/api/data', async (request, response) => {
 
     const result = await data.json()
 
+    let output = {}
     output.description = result.weather[0].description
     output.temp = result.main.temp
     output.feels_like = result.main.feels_like
-    output.humidity = result.main2.humidity
+    output.humidity = result.main.humidity
 
     response.send(output)
     } catch (e) {
@@ -40,10 +34,7 @@ app.get('/api/data', async (request, response) => {
        response.status(500).send(e.name)
     }
     
-    
 })
-
-
 
 app.listen(PORT, () => {
     console.log('Running on Port', PORT)
