@@ -1,12 +1,14 @@
 import express from 'express'
+import cors from 'cors'
 
 const app = express()
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3215
 
 // 200 success, 404 = not found, 400 bad request, 500 internal server error
 
-app.get('/api/data', async (request, response) => {
+app.use(cors())
+app.get('/', async (request, response) => {
     
     let {
         query: {city}
@@ -28,7 +30,7 @@ app.get('/api/data', async (request, response) => {
     output.feels_like = result.main.feels_like
     output.humidity = result.main.humidity
 
-    response.send(output)
+    response.json(output)
     } catch (e) {
        console.error()  
        response.status(500).send(e.name)
