@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import "dotenv/config"
 
 const app = express();
 
@@ -18,9 +19,9 @@ app.get("/", async (request, response) => {
 
   try {
     const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1493ad0764f705adea83d06d072d49bb&units=metric&lang=th`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}&units=metric&lang=th`
     );
-
+    
     if (weatherResponse.status === 404)
       return response.status(404).json({ message: "Not found" });
 
@@ -34,7 +35,7 @@ app.get("/", async (request, response) => {
     });
     
   } catch (e) {
-    console.error();
+    console.error(e);
     return response.status(500).json({ message: e.name });
   }
 });
