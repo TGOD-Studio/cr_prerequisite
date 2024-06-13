@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
-import "dotenv/config"
+import "dotenv/config";
+import registerRouter from "./routes/register.js";
+import authRouter from "./routes/auth.js";
+import verifyJWT from "./middleware/verifyJWT.js";
 
 const app = express();
 
@@ -10,7 +13,16 @@ const PORT = process.env.PORT || 3215;
 
 app.use(cors());
 
-app.get("/", async (request, response) => {
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
+
+app.use("/register", registerRouter);
+app.use("/auth", authRouter);
+
+app.use(verifyJWT);
+
+app.get("/weather", async (request, response) => {
   let {
     query: { city },
   } = request;
@@ -21,7 +33,7 @@ app.get("/", async (request, response) => {
     const weatherResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}&units=metric&lang=th`
     );
-    
+
     if (weatherResponse.status === 404)
       return response.status(404).json({ message: "Not found" });
 
@@ -33,7 +45,6 @@ app.get("/", async (request, response) => {
       feels_like: fullWeatherData.main.feels_like,
       humidity: fullWeatherData.main.humidity,
     });
-    
   } catch (e) {
     console.error(e);
     return response.status(500).json({ message: e.name });
@@ -43,3 +54,4 @@ app.get("/", async (request, response) => {
 app.listen(PORT, () => {
   console.log("Running on Port", PORT);
 });
+
