@@ -1,12 +1,1 @@
-[
-  {
-    "username": "Gay Poong",
-    "password": "$2b$10$q3X.676XKtPci89bpHFVKuOL2I3iAnjezk/wcz2kdzt1hiYFxXIHy",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdheSBQb29uZyIsImlhdCI6MTcxODI3OTU1MCwiZXhwIjoxNzE4MzY1OTUwfQ.oH6XZxes77tHhUGQFeNb8xTfTw40OZW8uDm1sfPD0TM"
-  },
-  {
-    "username": "fuck",
-    "password": "$2b$10$NF8Wn.35fFw1etVA86QL8uHFjN7h7SLCCBAy18KIhu0ids4aFO16G",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZ1Y2siLCJpYXQiOjE3MTgyODAxMTEsImV4cCI6MTcxODM2NjUxMX0.YnP01fe9gBO419Ox5rrNd71yzVSz-xWWxWbg_jm2s6Y"
-  }
-]
+[{"username":"fuck","password":"$2b$10$NF8Wn.35fFw1etVA86QL8uHFjN7h7SLCCBAy18KIhu0ids4aFO16G","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZ1Y2siLCJpYXQiOjE3MTgyODU0MzMsImV4cCI6MTcxODM3MTgzM30.SceRsxCkLrBtbAkRJCtaKgxutySl5o0Sn_SDnRYOYEA"},{"username":"Gay Poong","password":"$2b$10$q3X.676XKtPci89bpHFVKuOL2I3iAnjezk/wcz2kdzt1hiYFxXIHy","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdheSBQb29uZyIsImlhdCI6MTcxODI4NTg4NiwiZXhwIjoxNzE4MzcyMjg2fQ.Bk06nN9uPWSHTTZSL9YRlZyYUYKUtp7C44AvnXJBtlE"}]

@@ -1,9 +1,13 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+
 import registerRouter from "./routes/register.js";
 import authRouter from "./routes/auth.js";
+import refreshTokenRouter from "./routes/refresh.js";
+
 import verifyJWT from "./middleware/verifyJWT.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -17,8 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
+app.use(cookieParser());
+
 app.use("/register", registerRouter);
 app.use("/auth", authRouter);
+app.use("/refresh", refreshTokenRouter);
 
 app.use(verifyJWT);
 
@@ -54,4 +61,3 @@ app.get("/weather", async (request, response) => {
 app.listen(PORT, () => {
   console.log("Running on Port", PORT);
 });
-
