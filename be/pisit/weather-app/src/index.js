@@ -14,7 +14,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3215;
 
-// 200 success, 404 = not found, 400 bad request, 500 internal server error
+// 200 success, 404 = not found, 400 bad req, 500 internal server error
 
 app.use(cors());
 
@@ -31,12 +31,12 @@ app.use("/logout", logoutRouter)
 
 app.use(verifyJWT);
 
-app.get("/weather", async (request, response) => {
+app.get("/weather", async (req, res, next) => {
   let {
     query: { city },
-  } = request;
+  } = req;
 
-  if (!city) return response.status(400).json({ message: "Bad request" });
+  if (!city) return res.status(400).json({ message: "Bad req" });
 
   try {
     const weatherResponse = await fetch(
@@ -44,11 +44,11 @@ app.get("/weather", async (request, response) => {
     );
 
     if (weatherResponse.status === 404)
-      return response.status(404).json({ message: "Not found" });
+      return res.status(404).json({ message: "Not found" });
 
     const fullWeatherData = await weatherResponse.json();
 
-    response.json({
+    res.json({
       description: fullWeatherData.weather[0].description,
       temp: fullWeatherData.main.temp,
       feels_like: fullWeatherData.main.feels_like,
@@ -56,7 +56,7 @@ app.get("/weather", async (request, response) => {
     });
   } catch (e) {
     console.error(e);
-    return response.status(500).json({ message: e.name });
+    return res.status(500).json({ message: e.name });
   }
 });
 
