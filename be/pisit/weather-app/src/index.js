@@ -5,6 +5,7 @@ import "dotenv/config";
 import registerRouter from "./routes/register.js";
 import authRouter from "./routes/auth.js";
 import refreshTokenRouter from "./routes/refresh.js";
+import logoutRouter from "./routes/logout.js";
 
 import verifyJWT from "./middleware/verifyJWT.js";
 import cookieParser from "cookie-parser";
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use("/register", registerRouter);
 app.use("/auth", authRouter);
 app.use("/refresh", refreshTokenRouter);
+app.use("/logout", logoutRouter)
 
 app.use(verifyJWT);
 
