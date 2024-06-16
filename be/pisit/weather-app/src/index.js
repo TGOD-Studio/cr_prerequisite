@@ -8,7 +8,14 @@ import refreshTokenRouter from "./routes/refresh.js";
 import logoutRouter from "./routes/logout.js";
 
 import verifyJWT from "./middleware/verifyJWT.js";
+import verifyRoles from "./middleware/verifyRoles.js";
+import limiter from "./middleware/rateLimit.js";
 import cookieParser from "cookie-parser";
+
+import rolesList from "./database/roles-list.js";
+
+import freeWeather from "./controllers/freeWeatherController.js";
+import paidWeather from "./controllers/paidWeatherController.js";
 
 const app = express();
 
@@ -27,38 +34,14 @@ app.use(cookieParser());
 app.use("/register", registerRouter);
 app.use("/auth", authRouter);
 app.use("/refresh", refreshTokenRouter);
-app.use("/logout", logoutRouter)
+app.use("/logout", logoutRouter);
 
 app.use(verifyJWT);
 
-app.get("/weather", async (req, res, next) => {
-  let {
-    query: { city },
-  } = req;
+app.get("/weather/paid", verifyRoles(rolesList.Paid), paidWeather);
 
-  if (!city) return res.status(400).json({ message: "Bad req" });
-
-  try {
-    const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}&units=metric&lang=th`
-    );
-
-    if (weatherResponse.status === 404)
-      return res.status(404).json({ message: "Not found" });
-
-    const fullWeatherData = await weatherResponse.json();
-
-    res.json({
-      description: fullWeatherData.weather[0].description,
-      temp: fullWeatherData.main.temp,
-      feels_like: fullWeatherData.main.feels_like,
-      humidity: fullWeatherData.main.humidity,
-    });
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ message: e.name });
-  }
-});
+app.use(limiter);
+app.get("/weather/free", verifyRoles(rolesList.Free), freeWeather);
 
 app.listen(PORT, () => {
   console.log("Running on Port", PORT);

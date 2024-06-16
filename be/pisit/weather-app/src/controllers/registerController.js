@@ -11,11 +11,15 @@ const handleNewUser = async (req, res) => {
       .json({ message: "Username and password are required." });
 
   const duplicate = usersDB.users.find((person) => person.username === user);
-  if (duplicate) return res.status(409).json({ message: "conflict"});
+  if (duplicate) return res.status(409).json({ message: "conflict" });
 
   try {
     const hashedPwd = await bcrypt.hash(pwd, 10);
-    const newUser = { username: user, password: hashedPwd };
+    const newUser = {
+      username: user,
+      roles: { Free: 4399 },
+      password: hashedPwd,
+    };
     usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
       path.join(import.meta.dirname, "..", "database", "users.json"),
